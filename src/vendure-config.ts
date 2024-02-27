@@ -4,11 +4,14 @@ import {
     DefaultSearchPlugin,
     VendureConfig,
 } from '@vendure/core';
+import { compileUiExtensions } from '@vendure/ui-devkit/compiler'
 import { defaultEmailHandlers, EmailPlugin } from '@vendure/email-plugin';
 import { AssetServerPlugin } from '@vendure/asset-server-plugin';
 import { AdminUiPlugin } from '@vendure/admin-ui-plugin';
 import 'dotenv/config';
 import path from 'path';
+
+import { DeactivatePlugin } from './plugins/deactivate/deactivated.plugin';
 
 const IS_DEV = process.env.APP_ENV === 'dev';
 
@@ -88,6 +91,14 @@ export const config: VendureConfig = {
             adminUiConfig: {
                 apiPort: 3000,
             },
+				app: compileUiExtensions({
+					outputPath: path.join(__dirname, '../admin-ui'),
+					extensions: [
+						DeactivatePlugin.uiExtensions,
+					],
+					devMode: IS_DEV,
+				}),
         }),
+		  DeactivatePlugin,
     ],
 };
