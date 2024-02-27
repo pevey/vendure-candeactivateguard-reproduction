@@ -4,6 +4,7 @@
 - yarn install
 - yarn dev
 - go to http://localhost:3000/admin
+- log in with superadmin / superadmin
 - on side navigation bar, select the new "Custom Product List" entry under Catalog
 - click on any item to get to the detail view
 - change the text in the name field
